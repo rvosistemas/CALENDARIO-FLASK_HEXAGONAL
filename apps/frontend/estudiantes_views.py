@@ -1,11 +1,12 @@
-from flask import request
+from flask import request, flash
 
 from src.shared.infrastructure.mysql import DB
 
 from src.estudiantes.app.listar_estudiantes_case import ListarEstudiantesCase
-from src.estudiantes.app.crear_estudiante_case import CrearEstudiantesCase
-from src.estudiantes.app.editar_estudiante_case import EditarEstudiantesCase
-from src.estudiantes.app.eliminar_estudiante_case import EliminarEstudiantesCase
+from src.estudiantes.app.crear_estudiante_case import CrearEstudianteCase
+from src.estudiantes.app.editar_estudiante_case import EditarEstudianteCase
+from src.estudiantes.app.eliminar_estudiante_case import EliminarEstudianteCase
+
 
 class EstudiantesViews:
 
@@ -15,7 +16,7 @@ class EstudiantesViews:
         return estudiantes
 
     def crear_estudiante_view(self):
-        crear_estudiante_case = CrearEstudiantesCase(DB)
+        crear_estudiante_case = CrearEstudianteCase(DB)
         if request.method == 'POST':
             estudiante = {
                 'identificacion_estudiante': request.form['identificacion_estudiante'],
@@ -25,15 +26,20 @@ class EstudiantesViews:
                 'email_estudiante': request.form['email_estudiante'],
                 'semestre_estudiante': request.form['semestre_estudiante'],
             }
-        return crear_estudiante_case.crear(estudiante)
+        result = crear_estudiante_case.crear(estudiante)
+        if result == ('creado', 201):
+            flash('estudiante agregado satisfactoriamente')
+        else:
+            flash('Error o la identificacion y/o el correo del estudiante ya existen')
+        return result
 
     def obtener_estudiante_view(self, id):
-        obtener_estudiantes_case = EditarEstudiantesCase(DB)
-        estudiante = obtener_estudiantes_case.obtener(id)
+        obtener_estudiante_case = EditarEstudianteCase(DB)
+        estudiante = obtener_estudiante_case.obtener(id)
         return estudiante
-    
+
     def editar_estudiante_view(self, id):
-        editar_estudiante_case = EditarEstudiantesCase(DB)
+        editar_estudiante_case = EditarEstudianteCase(DB)
         if request.method == 'POST':
             estudiante = {
                 'identificacion_estudiante': request.form['identificacion_estudiante'],
@@ -43,8 +49,18 @@ class EstudiantesViews:
                 'email_estudiante': request.form['email_estudiante'],
                 'semestre_estudiante': request.form['semestre_estudiante'],
             }
-        return editar_estudiante_case.editar(id, estudiante)
-            
+        result = editar_estudiante_case.editar(id, estudiante)
+        if result == ('editado', 200):
+            flash('estudiante editado satisfactoriamente')
+        else:
+            flash('Error o la identificacion y/o el correo del estudiante ya existen')
+        return result
+
     def eliminar_estudiante_view(self, id):
-        eliminar_estudiantes_case = EliminarEstudiantesCase(DB)
-        return eliminar_estudiantes_case.eliminar(id)
+        eliminar_estudiante_case = EliminarEstudianteCase(DB)
+        result = eliminar_estudiante_case.eliminar(id)
+        if result == ('eliminado', 200):
+            flash('estudiante eliminado satisfactoriamente')
+        else:
+            flash('Error al eliminar estudiante')
+            return result

@@ -1,7 +1,7 @@
 from ..domain.editar import EditarEstudiante
 
 
-class EditarEstudiantesCase:
+class EditarEstudianteCase:
     def __init__(self, DB):
         self.DB = DB
 

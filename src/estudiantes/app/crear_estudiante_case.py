@@ -1,7 +1,7 @@
 from ..domain.crear import CrearEstudiante
 
 
-class CrearEstudiantesCase:
+class CrearEstudianteCase:
     def __init__(self, DB):
         self.DB = DB
 

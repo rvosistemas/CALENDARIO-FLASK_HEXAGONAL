@@ -1,7 +1,7 @@
 from ..domain.eliminar import EliminarEstudiante
 
 
-class EliminarEstudiantesCase:
+class EliminarEstudianteCase:
     def __init__(self, DB):
         self.DB = DB
 

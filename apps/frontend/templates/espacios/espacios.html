@@ -66,14 +66,14 @@
             <tbody>
                 {% for espacio in espacios %}
                 <tr>
-                    <td>{{espacio.1}}</td>
-                    <td>{{espacio.2}}</td>
+                    <td>{{espacio.nombre_espacio}}</td>
+                    <td>{{espacio.semestre_espacio}}</td>
                     <td>
-                        <a href="/editar_espacio/{{ espacio.0 }}" 
+                        <a href="/obtener_espacio/{{ espacio.id_espacio }}" 
                         class="btn btn-warning">
                             Editar
                         </a>
-                        <a href="/eliminar_espacio/{{ espacio.0 }}" 
+                        <a href="/eliminar_espacio/{{ espacio.id_espacio }}" 
                         class="btn btn-danger btn-delete">
                             Eliminar
                         </a>

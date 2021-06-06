@@ -34,7 +34,7 @@ class EditarEstudiante():
                     WHERE id_estudiante = %s
                 """, (identificacion_estudiante, nombres_estudiante, apellidos_estudiante, telefono_estudiante, email_estudiante, semestre_estudiante, id))
             self.DB.commit()
-            print('estudiante agregado satisfactoriamente')
+            print('estudiante editado satisfactoriamente')
             return 'editado', 200
         except:
             err = sys.exc_info()[0]  # captura todos los errores

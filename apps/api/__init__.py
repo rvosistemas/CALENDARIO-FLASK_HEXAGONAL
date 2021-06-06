@@ -3,7 +3,7 @@ from flask import Flask, jsonify, request
 
 from src.shared.infrastructure.mysql import DB
 from src.estudiantes.app.listar_estudiantes_case import ListarEstudiantesCase
-from src.estudiantes.app.crear_estudiante_case import CrearEstudiantesCase
+from src.estudiantes.app.crear_estudiante_case import CrearEstudianteCase
 
 app = Flask(__name__)
 
@@ -18,7 +18,7 @@ def listar_estudiantes():
 
 @app.route('/agregar_estudiante', methods=['POST'])
 def crear_estudiante():
-    crear_estudiante_case = CrearEstudiantesCase(DB)
+    crear_estudiante_case = CrearEstudianteCase(DB)
     data = request.get_json()[0]
     identificacion_estudiante = data['identificacion_estudiante']
     nombres_estudiante = data['nombres_estudiante']
