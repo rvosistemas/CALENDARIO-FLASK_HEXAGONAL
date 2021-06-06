@@ -21,27 +21,27 @@
         {% endwith %}
 
         <div class="card card-body">
-            <form action="/agregar_asistencia" method="POST">
+            <form action="/agregar_sesion" method="POST">
                 <div class="form-group">
-                    <label for="fecha_asistencia">Fecha sesion:</label>
-                    <input type="date" name="fecha_asistencia" 
-                    placeholder="fecha asistencia"
+                    <label for="fecha_sesion">Fecha sesion:</label>
+                    <input type="date" name="fecha_sesion" 
+                    placeholder="fecha sesion"
                     required
                     class="form-control">
                 </div>
                 <br>
                 <div class="form-group">
-                    <label for="hora_inicio_asistencia">Hora incio sesion:</label>
-                    <input type="time" name="hora_inicio_asistencia" 
-                    placeholder="asistencia hora inicio" 
+                    <label for="hora_inicio_sesion">Hora incio sesion:</label>
+                    <input type="time" name="hora_inicio_sesion" 
+                    placeholder="sesion hora inicio" 
                     required
                     class="form-control">
                 </div>
                 <br>
                 <div class="form-group">
-                    <label for="hora_fin_asistencia">Hora fin sesion:</label>
-                    <input type="time" name="hora_fin_asistencia" 
-                    placeholder="asistencia hora fin"
+                    <label for="hora_fin_sesion">Hora fin sesion:</label>
+                    <input type="time" name="hora_fin_sesion" 
+                    placeholder="sesion hora fin"
                     required 
                     class="form-control">
                 </div>
@@ -50,7 +50,7 @@
                     <label for="espacio_id">Espacio academico:</label>
                     <select class="form-control" name="espacio_id" required>
                         {% for espacio in espacios %}
-                            <option value="{{ espacio.0 }}">{{ espacio.1 }}</option>
+                            <option value="{{ espacio.id_espacio }}">{{ espacio.nombre_espacio }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -75,22 +75,22 @@
                 </tr>
             </thead>
             <tbody>
-                {% for asistencia in asistencias %}
+                {% for sesion in sesiones %}
                 <tr>
-                    <td>{{asistencia.1}}</td>
-                    <td>{{asistencia.2}}</td>
-                    <td>{{asistencia.3}}</td>
+                    <td>{{sesion.fecha_sesion}}</td>
+                    <td>{{sesion.hora_inicio_sesion}}</td>
+                    <td>{{sesion.hora_fin_sesion}}</td>
                     {% for espacio in espacios %}
-                        {% if espacio.0 == asistencia.4 %}
-                            <td>{{espacio.1}}</td>
+                        {% if espacio.id_espacio == sesion.espacio_id %}
+                            <td>{{espacio.nombre_espacio}}</td>
                         {% endif %}
                     {% endfor %}
                     <td>
-                        <a href="/editar_asistencia/{{ asistencia.0 }}" 
+                        <a href="/obtener_sesion/{{ sesion.id_sesion }}" 
                         class="btn btn-warning">
                             Editar
                         </a>
-                        <a href="/eliminar_asistencia/{{ asistencia.0 }}" 
+                        <a href="/eliminar_sesion/{{ sesion.id_sesion }}" 
                         class="btn btn-danger btn-delete">
                             Eliminar
                         </a>

@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for
+
 from .estudiantes_views import EstudiantesViews
 from .espacios_views import EspaciosViews
+from .sesiones_views import SesionesViews
 
 app = Flask(__name__, template_folder='../frontend/templates')
 
@@ -92,6 +94,51 @@ def eliminar_espacio(id):
     espacios_views = EspaciosViews()
     espacios_views.eliminar_espacio_view(id)
     return redirect(url_for('listar_espacios'))
+
+# # --------------------------------------------------------------------------------------------------
+# # ----------------------------------------- CRUD SESIONES ------------------------------------------
+# # --------------------------------------------------------------------------------------------------
+
+
+@app.route('/sesiones', methods=['GET'])
+def listar_sesiones():
+    sesiones_views = SesionesViews()
+    sesiones, espacios = sesiones_views.listar_sesiones_view()
+    return render_template('sesiones/sesiones.html', sesiones=sesiones, espacios=espacios)
+
+
+@app.route('/agregar_sesion', methods=['POST'])
+def crear_sesion():
+    if request.method == 'POST':
+        sesiones_views = SesionesViews()
+        sesiones_views.crear_sesion_view()
+        return redirect(url_for('listar_sesiones'))
+
+
+@app.route('/obtener_sesion/<id>')
+def obtener_sesion(id):
+    sesiones_views = SesionesViews()
+    sesion, espacios = sesiones_views.obtener_sesion_view(id)
+    return render_template('sesiones/editar_sesion.html', sesion=sesion, espacios=espacios)
+
+
+@app.route('/editar_sesion/<id>', methods=['POST'])
+def editar_sesion(id):
+    if request.method == 'POST':
+        sesiones_views = SesionesViews()
+        sesiones_views.editar_sesion_view(id)
+        return redirect(url_for('listar_sesiones'))
+
+
+@app.route('/eliminar_sesion/<id>')
+def eliminar_sesion(id):
+    sesiones_views = SesionesViews()
+    sesiones_views.eliminar_sesion_view(id)
+    return redirect(url_for('listar_sesiones'))
+
+# # --------------------------------------------------------------------------------------------------
+# # ------------------------------------------ APP CREATED -------------------------------------------
+# # --------------------------------------------------------------------------------------------------
 
 
 def create_app_fronted():
