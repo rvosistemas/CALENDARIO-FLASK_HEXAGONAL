@@ -1,0 +1,128 @@
+
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-md-5">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    {% if message == 'No se puede guardar sin cargar estudiantes' %}
+                        <div class="alert alert-danger alert-dismissible fade show" 
+                        role="alert">
+                            <strong>{{message}}</strong>
+                            <button type="button" class="btn-close" 
+                            data-bs-dismiss="alert" aria-label="Close">
+                            </button>
+                        </div>
+                    {% else %}
+                        {% if message == 'La asistencia que desea cargar ya existe' %}
+                            <div class="alert alert-danger alert-dismissible fade show" 
+                            role="alert">
+                                <strong>{{message}}</strong>
+                                <button type="button" class="btn-close" 
+                                data-bs-dismiss="alert" aria-label="Close">
+                                </button>
+                            </div>
+                        {% else %}
+                            {% if message == 'No hay estudiantes en el semestre del espacio academico' %}
+                                <div class="alert alert-warning alert-dismissible fade show" 
+                                role="alert">
+                                    <strong>{{message}}</strong>
+                                    <button type="button" class="btn-close" 
+                                    data-bs-dismiss="alert" aria-label="Close">
+                                    </button>
+                                </div>
+                            {% else %}
+                                <div class="alert alert-success alert-dismissible fade show" 
+                                role="alert">
+                                    <strong>{{message}}</strong>
+                                    <button type="button" class="btn-close" 
+                                    data-bs-dismiss="alert" aria-label="Close">
+                                    </button>
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <table class="table table-striped table-bordered bg-white table-sm" id="tabla_tomar_asistencias">
+            <thead>
+                <tr>
+                    <td>Fecha asistencia</td>
+                    <td>Hora inicio asistencia</td>
+                    <td>Hora fin asistencia</td>
+                    <td>espacio academico</td>
+                    <td>Operaciones</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for asistencia in asistencias %}
+                <tr>
+                    <td>{{asistencia.1}}</td>
+                    <td>{{asistencia.2}}</td>
+                    <td>{{asistencia.3}}</td>
+                    {% for espacio in espacios %}
+                        {% if espacio.0 == asistencia.4 %}
+                            <td>{{espacio.1}}</td>
+                        {% endif %}
+                    {% endfor %}
+                    <td>
+                        <a href="/cargar_estudiantes_asistencia/{{ asistencia.0 }}" 
+                        class="btn btn-info">
+                            cargar estudiantes
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}    
+            </tbody>
+        </table>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination pagination-sm pager" id="paginador4">
+            </ul>
+        </nav>
+    </div>
+
+    <div class="col-md-7">
+        <div class="card card-body">
+            <form action="/tomar_asistencia" method="POST">
+                <table class="table table-striped table-bordered bg-white table-sm" id="tabla_tomar_estudiantes">
+                    <thead>
+                        <tr>
+                            <td>Identificacion estudiante</td>
+                            <td>Nombre estudiante</td>
+                            <td>Asistio</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for estudiante in estudiantes %}
+                        <tr>
+                            <td>{{estudiante.1}}</td>
+                            <td>{{estudiante.2}} {{estudiante.3}}</td>
+                            <td>
+                                <input type="checkbox" name="estudiante_asistencia" id="estudiante_asistencia" value="{{estudiante.0}}" checked>
+                                <label for="estudiante_asistencia">Asistio</label><br>
+                                <input type="hidden" name="estudiante_id" id="estudiante_id" value="{{estudiante.0}}">
+                                <input type="hidden" name="asistencia_id" id="asistencia_id" value="{{id_asistencia}}">
+                            </td>
+                        </tr>
+                        {% endfor %}  
+                    </tbody>
+                </table>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination pagination-sm pager" id="paginador5">
+                    </ul>
+                </nav>
+                <button type="submit" class="btn btn-primary btn-guardar" id="guardar_lista">
+                    guardar lista
+                </button>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,92 @@
+
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-md-5">
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-success alert-dismissible fade show" 
+                    role="alert">
+                        <strong>{{message}}</strong>
+                        <button type="button" class="btn-close" 
+                        data-bs-dismiss="alert" aria-label="Close">
+                        </button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <div class="card card-body">
+            <form action="/agregar_espacio" method="POST">
+                <div class="form-group">
+                    <input type="text" name="nombre_espacio" 
+                    placeholder="nombre espacio academico" 
+                    required
+                    class="form-control">
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="semestre-select">Elegir semestre:</label>
+                    <select name="semestre_espacio" id="semestre-select" required>
+                        <option value="">--Por favor elija un semestre--</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                </div>
+                <br>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block">
+                        Guardar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-7">
+        <table class="table table-striped table-bordered bg-white table-sm" id="tabla_espacios">
+            <thead>
+                <tr>
+                    <td>Nombre espacio academico</td>
+                    <td>Semestre espacio academico</td>
+                    <td>Operaciones</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for espacio in espacios %}
+                <tr>
+                    <td>{{espacio.1}}</td>
+                    <td>{{espacio.2}}</td>
+                    <td>
+                        <a href="/editar_espacio/{{ espacio.0 }}" 
+                        class="btn btn-warning">
+                            Editar
+                        </a>
+                        <a href="/eliminar_espacio/{{ espacio.0 }}" 
+                        class="btn btn-danger btn-delete">
+                            Eliminar
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}    
+            </tbody>
+        </table>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination pagination-sm pager" id="paginador1">
+            </ul>
+        </nav>
+    </div>
+</div>
+
+{% endblock %}

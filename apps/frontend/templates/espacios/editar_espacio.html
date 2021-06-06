@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<div class="col-md-4 offsset-md-4">
+    <div class="card card-body">
+        <form action="/actualizar_espacio/{{ espacio.0 }}" method="POST">
+            <div class="form-group">
+                <input type="text" name="nombre_espacio" 
+                placeholder="nombre espacio academico" 
+                value="{{ espacio.1 }}" class="form-control">
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="semestre-select">Elegir semestre:</label>
+                <select name="semestre_espacio" id="semestre-select" required>
+                    <option value="{{ espacio.2 }}">{{ espacio.2 }}</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+            </div>
+            <br>
+            <div class="form-group">
+                <button type="submit" class="btn btn-success btn-block">
+                    Guardar
+                </button>
+                <a href="/espacios" class="btn btn-outline-dark">Volver</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

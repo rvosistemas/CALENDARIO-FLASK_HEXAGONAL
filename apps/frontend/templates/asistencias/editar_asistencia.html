@@ -1,0 +1,51 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<div class="col-md-4 offsset-md-4">
+    <div class="card card-body">
+        <form action="/actualizar_asistencia/{{ asistencia.0 }}" method="POST">
+            <div class="form-group">
+                <label for="fecha_asistencia">Fecha sesion:</label>
+                <input type="date" name="fecha_asistencia" 
+                placeholder="fecha asistencia" 
+                value="{{ asistencia.1 }}"
+                class="form-control">
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="hora_inicio_asistencia">Hora incio sesion:</label>
+                <input type="time" name="hora_inicio_asistencia" 
+                placeholder="asistencia hora inicio"
+                value="{{ asistencia.2 }}"
+                class="form-control">
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="hora_fin_asistencia">Hora fin sesion:</label>
+                <input type="time" name="hora_fin_asistencia" 
+                placeholder="asistencia hora fin"
+                value="{{ asistencia.3 }}"
+                class="form-control">
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="espacio_id">Espacio academico:</label>
+                <select class="form-control" name="espacio_id">
+                    {% for espacio in espacios %}
+                        <option value="{{ espacio.0 }}">{{ espacio.1 }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <br>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block">
+                    Guardar
+                </button>
+                <a href="/asistencias" class="btn btn-outline-dark">Volver</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

@@ -13,14 +13,12 @@ app = Flask(__name__)
 @app.route('/estudiantes', methods=['GET'])
 def listar_estudiantes():
     listar_estudiantes_case = ListarEstudiantesCase(DB)
-    return jsonify(listar_estudiantes_case.run())
+    return jsonify(listar_estudiantes_case.listar_estudiantes())
 
 
 @app.route('/agregar_estudiante', methods=['POST'])
 def crear_estudiante():
     crear_estudiante_case = CrearEstudiantesCase(DB)
-    print("resquest  -->  ", request)
-    print("resquest json  -->  ", request.get_json())
     data = request.get_json()[0]
     identificacion_estudiante = data['identificacion_estudiante']
     nombres_estudiante = data['nombres_estudiante']
@@ -28,7 +26,7 @@ def crear_estudiante():
     telefono_estudiante = data['telefono_estudiante']
     email_estudiante = data['email_estudiante']
     semestre_estudiante = data['semestre_estudiante']
-    return crear_estudiante_case.crear(
+    return crear_estudiante_case.crear_estudiante(
         identificacion_estudiante, nombres_estudiante,
         apellidos_estudiante, telefono_estudiante, email_estudiante, semestre_estudiante)
 
