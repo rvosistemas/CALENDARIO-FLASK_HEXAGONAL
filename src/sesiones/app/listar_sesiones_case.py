@@ -7,4 +7,4 @@ class ListarSesionesCase:
 
     def listar(self):
         listarSesiones = ListarSesiones(self.DB)
-        return listarSesiones.listar_espacios()
+        return listarSesiones.listar_sesiones()

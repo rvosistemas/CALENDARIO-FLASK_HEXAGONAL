@@ -39,16 +39,16 @@
                 </tr>
             </thead>
             <tbody>
-                {% for asistencia in asistencias %}
+                {% for sesion in sesiones %}
                 <tr>
-                    <td>{{ asistencia.1 }}</td>
+                    <td>{{ sesion.1 }}</td>
                     {% for espacio in espacios %}
-                        {% if espacio.0 == asistencia.4 %}
+                        {% if espacio.0 == sesion.4 %}
                             <td>{{espacio.1}}</td>
                         {% endif %}
                     {% endfor %}
                     <td>
-                        <a href="/listar_estudiantes/{{ asistencia.0 }}" 
+                        <a href="/listar_estudiantes_asistencia/{{ sesion.0 }}" 
                         class="btn btn-info">
                             cargar lista de asistentes
                         </a>
@@ -92,7 +92,7 @@
                 <ul class="pagination pagination-sm pager" id="paginador7">
                 </ul>
             </nav>
-            <a href="/eliminar_lista_asistencia/{{ asistencia_id }}" 
+            <a href="/eliminar_asistencia/{{ sesion_id }}" 
             class="btn btn-danger btn-delete">
                 Eliminar lista
             </a>

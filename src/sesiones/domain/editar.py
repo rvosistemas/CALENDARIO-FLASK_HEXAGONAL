@@ -20,19 +20,19 @@ class EditarSesion():
     def editar(self, id, sesion):
         cur = self.DB.cursor()
         try:
-            fecha_asistencia = sesion['fecha_asistencia']
-            hora_inicio_asistencia = sesion['hora_inicio_asistencia']
-            hora_fin_asistencia = sesion['hora_fin_asistencia']
-            sesion_id = sesion['sesion_id']
+            fecha_sesion = sesion['fecha_sesion']
+            hora_inicio_sesion = sesion['hora_inicio_sesion']
+            hora_fin_sesion = sesion['hora_fin_sesion']
+            espacio_id = sesion['espacio_id']
 
             cur.execute("""
-                    UPDATE sesions
-                    SET fecha_asistencia = %s,
-                        hora_inicio_asistencia = %s,
-                        hora_fin_asistencia = %s,
-                        sesion_id = %s,
+                    UPDATE sesiones
+                    SET fecha_sesion = %s,
+                        hora_inicio_sesion = %s,
+                        hora_fin_sesion = %s,
+                        espacio_id = %s
                     WHERE id_sesion = %s
-                """, (fecha_asistencia, hora_inicio_asistencia, hora_fin_asistencia, sesion_id, id))
+                """, (fecha_sesion, hora_inicio_sesion, hora_fin_sesion, espacio_id, id))
             self.DB.commit()
             print('sesion editada satisfactoriamente')
             return 'editada', 200

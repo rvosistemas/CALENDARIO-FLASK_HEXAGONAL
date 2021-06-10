@@ -19,9 +19,9 @@ class SesionesViews:
         crear_sesion_case = CrearSesionCase(DB)
         if request.method == 'POST':
             sesion = {
-                'fecha_asistencia': request.form['fecha_asistencia'],
-                'hora_inicio_asistencia': request.form['hora_inicio_asistencia'],
-                'hora_fin_asistencia': request.form['hora_fin_asistencia'],
+                'fecha_sesion': request.form['fecha_sesion'],
+                'hora_inicio_sesion': request.form['hora_inicio_sesion'],
+                'hora_fin_sesion': request.form['hora_fin_sesion'],
                 'espacio_id': request.form['espacio_id'],
             }
         result = crear_sesion_case.crear(sesion)
@@ -40,9 +40,9 @@ class SesionesViews:
         editar_sesion_case = EditarSesionCase(DB)
         if request.method == 'POST':
             sesion = {
-                'fecha_asistencia': request.form['fecha_asistencia'],
-                'hora_inicio_asistencia': request.form['hora_inicio_asistencia'],
-                'hora_fin_asistencia': request.form['hora_fin_asistencia'],
+                'fecha_sesion': request.form['fecha_sesion'],
+                'hora_inicio_sesion': request.form['hora_inicio_sesion'],
+                'hora_fin_sesion': request.form['hora_fin_sesion'],
                 'espacio_id': request.form['espacio_id'],
             }
         result = editar_sesion_case.editar(id, sesion)

@@ -147,23 +147,23 @@ def cargar_estudiantes_asistencia(id_sesion):
     asistencias_views = AsistenciasViews()
     result = asistencias_views.cargar_estudiantes_asistencia_view(id_sesion)
     if result.get('id_sesion', False):
-        asistencias = result['asistencias']
+        sesiones = result['sesiones']
         espacios = result['espacios']
         estudiantes = result['estudiantes']
-        id_asistencia = result['id_asistencia']
+        id_sesion = result['id_sesion']
         nombre_espacio = result['nombre_espacio']
-        return render_template('asistencias/tomar_asistencias.html', asistencias=asistencias, espacios=espacios, estudiantes=estudiantes, id_asistencia=id_asistencia, nombre_espacio=nombre_espacio)
+        return render_template('asistencias/tomar_asistencias.html', sesiones=sesiones, espacios=espacios, estudiantes=estudiantes, id_sesion=id_sesion, nombre_espacio=nombre_espacio)
     else:
-        asistencias = result['asistencias']
+        sesiones = result['sesiones']
         espacios = result['espacios']
-        return render_template('asistencias/tomar_asistencias.html', asistencias=asistencias, espacios=espacios)
+        return render_template('asistencias/tomar_asistencias.html', sesiones=sesiones, espacios=espacios)
 
 
 @app.route('/eliminar_asistencia/<sesion_id>')
 def eliminar_asistencia(sesion_id):
     asistencias_views = AsistenciasViews()
     asistencias_views.eliminar_asistencia_view(sesion_id)
-    return redirect(url_for('listar_sesiones'))
+    return redirect(url_for('listar_asistencias'))
 
 
 @app.route('/listar_asistencias')
@@ -173,26 +173,27 @@ def listar_asistencias():
     return render_template('asistencias/listar_asistencias.html', sesiones=sesiones, espacios=espacios)
 
 
-@app.route('/listar_estudiantes/<asistencia_id>')
-def listar_estudiantes():
+@app.route('/listar_estudiantes_asistencia/<sesion_id>')
+def listar_estudiantes_asistencia(sesion_id):
     asistencias_views = AsistenciasViews()
-    sesiones, espacios, lista_estudiantes, sesion_id = asistencias_views.listar_estudiantes_view()
+    sesiones, espacios, lista_estudiantes, sesion_id = asistencias_views.listar_estudiantes_asistencia_view(
+        sesion_id)
     return render_template('asistencias/listar_asistencias.html', sesiones=sesiones, espacios=espacios, lista_estudiantes=lista_estudiantes, sesion_id=sesion_id)
 
 
-@app.route('/tomar_sesiones')
-def tomar_sesiones():
+@app.route('/tomar_asistencias')
+def tomar_asistencias():
     asistencias_views = AsistenciasViews()
-    sesiones, espacios = asistencias_views.tomar_sesiones_view()
-    return render_template('asistencias/listar_asistencias.html', sesiones=sesiones, espacios=espacios)
+    sesiones, espacios = asistencias_views.tomar_asistencias_view()
+    return render_template('asistencias/tomar_asistencias.html', sesiones=sesiones, espacios=espacios)
 
 
 @app.route('/tomar_asistencia', methods=['POST'])
 def tomar_asistencia():
     if request.method == 'POST':
         asistencias_views = AsistenciasViews()
-        asistencias_views.tomar_asistencias_view()
-    return redirect(url_for('tomar_sesiones'))
+        asistencias_views.tomar_asistencia_view()
+    return redirect(url_for('tomar_asistencias'))
 
 
 # # --------------------------------------------------------------------------------------------------

@@ -16,15 +16,15 @@ class EditarEspacio():
     def editar(self, id, espacio):
         cur = self.DB.cursor()
         try:
-            nombres_espacio = espacio['nombres_espacio']
+            nombre_espacio = espacio['nombre_espacio']
             semestre_espacio = espacio['semestre_espacio']
             
             cur.execute("""
                     UPDATE espacios
-                    SET nombres_espacio = %s,
-                        semestre_espacio = %s,
+                    SET nombre_espacio = %s,
+                        semestre_espacio = %s
                     WHERE id_espacio = %s
-                """, (nombres_espacio, semestre_espacio, id))
+                """, (nombre_espacio, semestre_espacio, id))
             self.DB.commit()
             print('espacio editado satisfactoriamente')
             return 'editado', 200

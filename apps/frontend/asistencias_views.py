@@ -35,41 +35,41 @@ class AsistenciasViews:
         sesion, espacios = listar_asistencia_case.listar_asistencias()
         return sesion, espacios
 
-    def listar_estudiantes_view(self, sesion_id):
+    def listar_estudiantes_asistencia_view(self, sesion_id):
         listar_asistencia_case = ListarAsistenciasCase(DB)
-        sesiones, espacios, lista_estudiantes, sesion_id = listar_asistencia_case.listar_asistencias(
+        sesiones, espacios, lista_estudiantes, sesion_id = listar_asistencia_case.listar_estudiantes_asistencia(
             sesion_id)
         if lista_estudiantes == []:
             flash('La lista no tiene estudiantes')
         return sesiones, espacios, lista_estudiantes, sesion_id
 
-    def tomar_sesiones_view(self):
-        tomar_asistencias_case = TomarAsistenciasCase(DB)
-        sesiones, espacios = tomar_asistencias_case.tomar_sesiones()
-        return sesiones, espacios
-
     def tomar_asistencias_view(self):
         tomar_asistencias_case = TomarAsistenciasCase(DB)
+        sesiones, espacios = tomar_asistencias_case.tomar_asistencias()
+        return sesiones, espacios
+
+    def tomar_asistencia_view(self):
+        tomar_asistencias_case = TomarAsistenciasCase(DB)
         try:
-            result = request.form.to_dict(flat=False)
-            asistencia_id = result['asistencia_id'][0]
-            if result.get("estudiante_asistencia"):
-                for estudiante_id in result['estudiante_id']:
-                    if estudiante_id in result['estudiante_asistencia']:
-                        estudiante_asistencia = 1
-                        asistencia = {
-                            'estudiante_id': estudiante_id,
-                            'asistencia_id': asistencia_id,
-                            'estudiante_asistencia': estudiante_asistencia,
-                        }
-                        result = tomar_asistencias_case.tomar_asistencias(
-                            asistencia)
-                        if result == ('creada', 201):
-                            flash('asistencia agregada satisfactoriamente')
-                        else:
-                            flash('Error al agregar sesion')
-                    else:
-                        continue
+            asistentes = request.form.to_dict(flat=False)
+            # sesion_id = result['sesion_id'][0]
+            # if result.get("estudiante_asistencia"):
+            #     for estudiante_id in result['estudiante_id']:
+            #         if estudiante_id in result['estudiante_asistencia']:
+            #             estudiante_asistencia = 1
+            #             asistencia = {
+            #                 'estudiante_id': estudiante_id,
+            #                 'sesion_id': sesion_id,
+            #                 'estudiante_asistencia': estudiante_asistencia,
+            #             }
+            result = tomar_asistencias_case.tomar_asistencia(
+                asistentes)
+            if result == ('creada', 201):
+                flash('asistencia agregada satisfactoriamente')
+            else:
+                flash('Error al agregar sesion')
+            # else:
+            #     continue
         except:
             flash('No se puede guardar sin cargar estudiantes')
         return result

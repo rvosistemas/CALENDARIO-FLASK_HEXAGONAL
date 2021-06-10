@@ -9,14 +9,14 @@ class CrearSesion():
     def crear(self, sesion):
         cur = self.DB.cursor()
         try:
-            fecha_asistencia = sesion['fecha_asistencia']
-            hora_inicio_asistencia = sesion['hora_inicio_asistencia']
-            hora_fin_asistencia = sesion['hora_fin_asistencia']
+            fecha_sesion = sesion['fecha_sesion']
+            hora_inicio_sesion = sesion['hora_inicio_sesion']
+            hora_fin_sesion = sesion['hora_fin_sesion']
             espacio_id = sesion['espacio_id']
 
             cur.execute(
-                'INSERT INTO sesions (fecha_asistencia, hora_inicio_asistencia, hora_fin_asistencia, espacio_id) VALUES (%s, %s, %s, %s)',
-                (fecha_asistencia, hora_inicio_asistencia, hora_fin_asistencia, espacio_id))
+                'INSERT INTO sesiones (fecha_sesion, hora_inicio_sesion, hora_fin_sesion, espacio_id) VALUES (%s, %s, %s, %s)',
+                (fecha_sesion, hora_inicio_sesion, hora_fin_sesion, espacio_id))
             self.DB.commit()
             print('sesion agregada satisfactoriamente')
             return 'creada', 201

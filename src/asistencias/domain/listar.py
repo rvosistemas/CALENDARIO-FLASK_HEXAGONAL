@@ -14,14 +14,14 @@ class ListarAsistencias():
         cur.close()
         return sesiones, espacios
 
-    def listar_estudiantes(self, sesion_id):
+    def listar_estudiantes_asistencia(self, sesion_id):
         cur = self.DB.cursor()
         cur.execute('SELECT * FROM sesiones')
         sesiones = cur.fetchall()
         cur.execute('SELECT * FROM espacios')
         espacios = cur.fetchall()
         cur.execute(
-            f"SELECT estudiante_id FROM asistencias WHERE asistencia_id = {sesion_id}")
+            f"SELECT estudiante_id FROM asistencias WHERE sesion_id = {sesion_id}")
         estudiantes_ids = cur.fetchall()
         lista_estudiantes = []
         for estudiante_id in estudiantes_ids:

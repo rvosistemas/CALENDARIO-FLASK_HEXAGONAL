@@ -5,10 +5,10 @@ class TomarAsistenciasCase:
     def __init__(self, DB):
         self.DB = DB
 
-    def tomar_sesiones(self):
+    def tomar_asistencias(self):
         tomarAsistencias = TomarAsistencias(self.DB)
-        return tomarAsistencias.tomar_sesiones(id)
+        return tomarAsistencias.tomar_asistencias()
 
-    def tomar_asistencias(self, id, asistencia):
-        tomarAsistencias = TomarAsistencias(self.DB)
-        return tomarAsistencias.tomar_asistencias(id, asistencia)
+    def tomar_asistencia(self, asistentes):
+        tomarAsistencia = TomarAsistencias(self.DB)
+        return tomarAsistencia.tomar_asistencia(asistentes)

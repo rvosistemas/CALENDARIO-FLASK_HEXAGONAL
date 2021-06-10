@@ -23,10 +23,10 @@ class CargarEstudiantesAsistencia():
             return result
         else:
             cur.execute(
-                f"SELECT nombre_espacio FROM espacios AS e INNER JOIN sesiones AS s ON e.id_espacio = s.espacio_id WHERE s.id_espacio = {id_sesion}")
+                f"SELECT nombre_espacio FROM espacios AS e INNER JOIN sesiones AS s ON e.id_espacio = s.espacio_id WHERE s.id_sesion = {id_sesion}")
             nombre_espacio = cur.fetchall()
             cur.execute(
-                f"SELECT semestre_espacio FROM espacios AS e INNER JOIN sesiones AS s ON e.id_espacio = s.espacio_id WHERE s.id_espacio = {id_sesion}")
+                f"SELECT semestre_espacio FROM espacios AS e INNER JOIN sesiones AS s ON e.id_espacio = s.espacio_id WHERE s.id_sesion = {id_sesion}")
             semestre_espacio = cur.fetchall()[0]
             cur.execute(
                 f"SELECT * FROM estudiantes WHERE semestre_estudiante = {semestre_espacio[0]}")
