@@ -5,6 +5,6 @@ class ListarEstudiantesCase:
     def __init__(self, DB):
         self.DB = DB
 
-    def run(self):
+    def listar(self):
         listarEstudiantes = ListarEstudiantes(self.DB)
-        return listarEstudiantes.run()
+        return listarEstudiantes.listar_estudiantes()

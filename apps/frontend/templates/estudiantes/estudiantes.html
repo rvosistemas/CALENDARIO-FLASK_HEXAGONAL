@@ -1,0 +1,169 @@
+{% extends 'layout.html' %} {% block body %}
+
+<div class="row">
+    <div class="col-md-5">
+        {% with messages = get_flashed_messages() %} {% if messages %} {% for
+        message in messages %} {% if message == 'La identificacion o el correo
+        del estudiante ya existen' %}
+        <div
+            class="alert alert-danger alert-dismissible fade show"
+            role="alert"
+        >
+            <strong>{{message}}</strong>
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close"
+            ></button>
+        </div>
+        {% else %}
+        <div
+            class="alert alert-success alert-dismissible fade show"
+            role="alert"
+        >
+            <strong>{{message}}</strong>
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close"
+            ></button>
+        </div>
+        {% endif %} {% endfor %} {% endif %} {% endwith %}
+
+        <div class="card card-body">
+            <form action="/agregar_estudiante" method="POST">
+                <div class="form-group">
+                    <input
+                        type="text"
+                        name="identificacion_estudiante"
+                        placeholder="identificacion estudiante"
+                        required
+                        class="form-control"
+                    />
+                </div>
+                <br />
+                <div class="form-group">
+                    <input
+                        type="text"
+                        name="nombres_estudiante"
+                        placeholder="nombres estudiante"
+                        required
+                        class="form-control"
+                    />
+                </div>
+                <br />
+                <div class="form-group">
+                    <input
+                        type="text"
+                        name="apellidos_estudiante"
+                        placeholder="apellidos estudiante"
+                        required
+                        class="form-control"
+                    />
+                </div>
+                <br />
+                <div class="form-group">
+                    <input
+                        type="number"
+                        name="telefono_estudiante"
+                        placeholder="telefono estudiante"
+                        required
+                        min="1000000000"
+                        max="9999999999"
+                        class="form-control"
+                    />
+                </div>
+                <br />
+                <div class="form-group">
+                    <input
+                        type="email"
+                        name="email_estudiante"
+                        placeholder="email estudiante"
+                        required
+                        class="form-control"
+                    />
+                </div>
+                <br />
+                <div class="form-group">
+                    <label for="semestre-select">Elegir semestre:</label>
+                    <select
+                        name="semestre_estudiante"
+                        id="semestre-select"
+                        required
+                    >
+                        <option value="">
+                            -- Por favor elija un semestre --
+                        </option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                </div>
+                <br />
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block">
+                        Guardar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-7">
+        <table
+            class="table table-striped table-bordered bg-white table-sm"
+            id="tabla_estudiantes"
+        >
+            <thead>
+                <tr>
+                    <td>Identificacion estudiante</td>
+                    <td>Nombres estudiante</td>
+                    <td>Apellidos estudiante</td>
+                    <td>Telefono estudiante</td>
+                    <td>Email estudiante</td>
+                    <td>Semestre estudiante</td>
+                    <td>Operaciones</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for estudiante in estudiantes %}
+                <tr>
+                    <td>{{estudiante.identificacion_estudiante}}</td>
+                    <td>{{estudiante.nombres_estudiante}}</td>
+                    <td>{{estudiante.apellidos_estudiante}}</td>
+                    <td>{{estudiante.telefono_estudiante}}</td>
+                    <td>{{estudiante.email_estudiante}}</td>
+                    <td>{{estudiante.semestre_estudiante}}</td>
+                    <td>
+                        <a
+                            href="/obtener_estudiante/{{ estudiante.id_estudiante }}"
+                            class="btn btn-warning"
+                        >
+                            Editar
+                        </a>
+                        <a
+                            href="/eliminar_estudiante/{{ estudiante.id_estudiante }}"
+                            class="btn btn-danger btn-delete"
+                        >
+                            Eliminar
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination pagination-sm pager" id="paginador2"></ul>
+        </nav>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends 'layout.html' %} {% block body %}
+
+<div class="col-md-4 offsset-md-4">
+    <div class="card card-body">
+        <form action="/editar_estudiante/{{ estudiante.0 }}" method="POST">
+            <div class="form-group">
+                <input
+                    type="text"
+                    name="identificacion_estudiante"
+                    placeholder="identificacion estudiante"
+                    value="{{ estudiante.1 }}"
+                    class="form-control"
+                />
+            </div>
+            <br />
+            <div class="form-group">
+                <input
+                    type="text"
+                    name="nombres_estudiante"
+                    placeholder="nombres estudiante"
+                    value="{{ estudiante.2 }}"
+                    class="form-control"
+                />
+            </div>
+            <br />
+            <div class="form-group">
+                <input
+                    type="text"
+                    name="apellidos_estudiante"
+                    placeholder="apellidos estudiante"
+                    value="{{ estudiante.3 }}"
+                    class="form-control"
+                />
+            </div>
+            <br />
+            <div class="form-group">
+                <input
+                    type="number"
+                    name="telefono_estudiante"
+                    placeholder="telefono estudiante"
+                    value="{{ estudiante.4 }}"
+                    min="1000000000"
+                    max="9999999999"
+                    class="form-control"
+                />
+            </div>
+            <br />
+            <div class="form-group">
+                <input
+                    type="email"
+                    name="email_estudiante"
+                    placeholder="email estudiante"
+                    value="{{ estudiante.5 }}"
+                    class="form-control"
+                />
+            </div>
+            <br />
+            <div class="form-group">
+                <label for="semestre-select">Elegir semestre:</label>
+                <select name="semestre_estudiante" id="semestre-select">
+                    <option value="{{ estudiante.6 }}">
+                        {{ estudiante.6 }}
+                    </option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+            </div>
+            <br />
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block">
+                    Guardar
+                </button>
+                <a href="/estudiantes" class="btn btn-outline-dark">Volver</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
