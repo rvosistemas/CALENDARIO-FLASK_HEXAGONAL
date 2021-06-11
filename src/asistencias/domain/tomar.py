@@ -18,7 +18,6 @@ class TomarAsistencias():
         return sesiones, espacios
 
     def tomar_asistencia(self, asistentes):
-        print("#"*50, "asistencia  ->  ", asistentes)
         try:
             sesion_id = asistentes['sesion_id'][0]
             if asistentes.get("estudiante_asistencia"):

@@ -110,20 +110,3 @@ $(document).ready(function () {
     $('#tabla_listar_asistencias').pageMe({ pagerSelector: '#paginador6', showPrevNext: true, hidePageNumbers: false, perPage: 5 });
     $('#tabla_listar_estudiantes_asistentes').pageMe({ pagerSelector: '#paginador7', showPrevNext: true, hidePageNumbers: false, perPage: 5 });
 });
-
-// $(function () {
-//     console.log("entrando a la fucion resaltado");
-//     // elementos de la lista
-//     var menues = $(".nav-item a");
-//     console.log("menues   " + menues);
-
-//     // manejador de click sobre todos los elementos
-//     menues.click(function () {
-//         $(".nav-link").find(".active").removeClass("active");
-//         $(this).addClass("active");
-//         // eliminamos active de todos los elementos
-//         // menues.removeClass("active");
-//         // activamos el elemento clicado.
-//         // $(this).addClass("active");
-//     });
-// });

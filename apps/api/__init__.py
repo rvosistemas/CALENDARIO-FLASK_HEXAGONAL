@@ -7,8 +7,6 @@ from src.estudiantes.app.crear_estudiante_case import CrearEstudianteCase
 
 app = Flask(__name__)
 
-# from src import *
-
 
 @app.route('/estudiantes', methods=['GET'])
 def listar_estudiantes():
